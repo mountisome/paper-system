@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ## paper-system
 
 ### 1.简要介绍
@@ -118,3 +119,7 @@ paper-system是一个论文检索系统，基于Spring Boot+MyBatis+Bootstrap+Th
 - 启动项目
 - 在浏览器中输入`http://localhost:8080/`跳转到登录界面
 - 用户名为`name1`，密码为`123`登录论文检索系统
+=======
+# paper-system
+基于Spring Boot开发的论文检索系统
+>>>>>>> 73af8f43c952ca34dd33b784e3a54f6abf903e9b
