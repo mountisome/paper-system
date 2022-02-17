@@ -19,7 +19,7 @@ paper-system是一个论文检索系统，基于Spring Boot+MyBatis+Bootstrap+Th
 ### 3.技术选型
 
 - 核心框架：Spring Boot
-- 持久层框架：MyBatis 
+- 持久层框架：MyBatis
 - 页面：Thymeleaf
 - CSS样式：Bootstrap
 - 数据库连接池：Druid
