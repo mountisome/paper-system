@@ -1,5 +1,5 @@
 create database prs;
-use prs;
+use prs; 
 
 create table admin(
                       id int primary key auto_increment,
