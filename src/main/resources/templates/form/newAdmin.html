@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>论文检索系统</title>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+
+<body>
+    <div class="right-content col-md-10" th:fragment="newAdmin">
+        <form th:action="@{/admin/addNewAdmin}" method="post">
+            <br/>
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <td>用户名：</td>
+                        <td><input type="text" name="name"></td>
+                    </tr>
+                    <tr>
+                        <td>密码：</td>
+                        <td><input type="text" name="pwd"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <button type="submit">提交</button>
+                            <input type="button" value="返回" onclick="javascript:history.back()">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</body>
+
+</html>

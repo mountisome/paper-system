@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>论文检索系统</title>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/upload.css}">
+</head>
+
+<body>
+    <div th:replace="common :: commonheader"></div>
+
+    <div th:replace="common :: leftmenu"></div>
+
+    <div class="right-content col-md-10">
+        <form th:action="@{/paperinfo/uploadPaper}" method="post" enctype="multipart/form-data"
+              onsubmit="return upload()" style="margin-top: 20px;">
+            <table class="table table-bordered">
+                <tbody>
+                <tr>
+                    <td style="width: 100px;">分类号：</td>
+                    <td><input type="text" id="classnum" name="classnum"></td>
+                </tr>
+                <tr>
+                    <td style="width: 100px;">论文名称：</td>
+                    <td><input type="text" id="title" name="title" style="width: 600px;"></td>
+                </tr>
+                <tr>
+                    <td style="width: 100px;">作者：</td>
+                    <td><input type="text" id="author" name="author"></td>
+                </tr>
+                <tr>
+                    <td style="width: 100px;">摘要：</td>
+                    <td><textarea class="form-control" rows="5" id="abstracts" name="abstracts"></textarea></td>
+                </tr>
+                <tr>
+                    <td style="width: 100px;">关键字：</td>
+                    <td><input type="text" id="keyword" name="keyword" style="width: 600px;"></td>
+                </tr>
+                <tr>
+                    <td style="width: 100px;">出处：</td>
+                    <td><input type="text" id="genre" name="genre"></td>
+                </tr>
+                <tr>
+                    <td style="width: 100px;">论文类别：</td>
+                    <td>
+                        <select id="type" name="type">
+                            <option value="期刊文章">期刊文章</option>
+                            <option value="学位论文">学位论文</option>
+                            <option value="电子文献">电子文献</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 100px;">发表时间：</td>
+                    <td><input type="text" id="time" name="time"></td>
+                </tr>
+                <tr>
+                    <td style="width: 100px;">下载次数：</td>
+                    <td><input type="text" id="download" name="download"></td>
+                </tr>
+                <tr>
+                    <td style="width: 100px;">上传文献：</td>
+                    <td><input type="file" id="uploadFile" name="uploadFile"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <button type="submit">提交</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</body>
+
+<script>
+    document.getElementById("li_head1").className = "active";
+
+    document.getElementById("a_upload").style.backgroundColor = "#4CAF50";
+    document.getElementById("a_upload").style.color = "white";
+
+    function upload() {
+        let classnum = document.getElementById("classnum").value;
+        let title = document.getElementById("title").value;
+        let author = document.getElementById("author").value;
+        let abstracts = document.getElementById("abstracts").value;
+        let keyword = document.getElementById("keyword").value;
+        let genre = document.getElementById("genre").value;
+        let time = document.getElementById("time").value;
+        let download = document.getElementById("download").value;
+        let uploadFile = document.getElementById("uploadFile").value;
+
+        if (classnum === "" || title === "" || author === "" || abstracts === "" || keyword === "" || genre === "" ||
+            time === "" || download === "" || uploadFile === "") {
+            alert("请输入论文完整信息！");
+            return false;
+        }
+        return true;
+    }
+</script>
+
+</html>

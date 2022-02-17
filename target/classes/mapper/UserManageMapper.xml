@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mountisome.paper_system.dao.UserManageMapper">
+
+    <!--查询所有的普通用户-->
+    <select id="findAllUsers" resultType="com.mountisome.paper_system.entity.User">
+        select * from user
+    </select>
+
+    <!--修改用户信息-->
+    <update id="modifyByName" parameterType="com.mountisome.paper_system.entity.User">
+        update user set pwd = #{pwd}, phone = #{phone}, mailbox = #{mailbox} where name = #{name}
+    </update>
+
+    <!--管理员修改用户信息-->
+    <update id="modifyByAdmin" parameterType="com.mountisome.paper_system.entity.User">
+        update user set pwd=#{pwd} where id=#{id}
+    </update>
+
+    <!--通过用户名查询普通用户-->
+    <select id="findByUserName" parameterType="String" resultType="com.mountisome.paper_system.entity.User">
+        select * from user where name like "%"#{name}"%"
+    </select>
+
+    <!--通过用户名查询特定用户-->
+    <select id="findUserByName" parameterType="String" resultType="com.mountisome.paper_system.entity.User">
+        select * from user where name=#{name}
+    </select>
+
+    <!--通过序号查询普通用户-->
+    <select id="findByUserId" parameterType="int" resultType="com.mountisome.paper_system.entity.User">
+        select * from user where id=#{id}
+    </select>
+
+    <!--通过序号删除普通用户-->
+    <delete id="deleteByUserId" parameterType="int">
+        delete from user where id=#{id}
+    </delete>
+
+</mapper>

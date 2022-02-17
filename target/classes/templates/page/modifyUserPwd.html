@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>论文检索系统</title>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/mainstyle.css}">
+</head>
+
+<body>
+    <div th:replace="common :: commonheader"></div>
+
+    <div th:replace="common :: leftmenu"></div>
+
+    <div class="right-content col-md-10">
+        <form th:action="@{/admin/modifyUserPwd}" method="post" onsubmit="return modify();">
+            <input type="hidden" name="id" th:value="${user.id}">
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <td>用户名：</td>
+                        <td>[[${user.name}]]</td>
+                    </tr>
+                    <tr>
+                        <td>密码：</td>
+                        <td><input type="text" name="pwd" th:value="${user.pwd}"></td>
+                    </tr>
+                    <tr>
+                        <td>电话：</td>
+                        <td>[[${user.phone}]]</td>
+                    </tr>
+                    <tr>
+                        <td>邮箱：</td>
+                        <td>[[${user.mailbox}]]</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <button type="submit">确认修改</button>
+                            <input type="button" value="返回" onclick="history.back()">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</body>
+
+<script>
+    function modify() {
+        alert("用户密码修改成功");
+    }
+
+    document.getElementById("li_head2").className = "active";
+
+    document.getElementById("a_manageUser").style.backgroundColor = "#4CAF50";
+    document.getElementById("a_manageUser").style.color = "white";
+</script>
+
+</html>

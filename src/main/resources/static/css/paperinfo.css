@@ -1,0 +1,26 @@
+.container-fluid {
+    background-color: lightskyblue;
+}
+
+.col-md-2 {
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    height: 600px;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    border: 1px solid #555;
+    text-align: center;
+}
+
+.left-menu {
+    float: left;
+}
+
+.right-content {
+    float: left;
+}
+
+form {
+    text-align: center;
+}

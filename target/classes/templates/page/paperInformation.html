@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>论文检索系统</title>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/mainstyle.css}">
+</head>
+
+<body>
+    <div th:replace="common :: commonheader"></div>
+
+    <div th:replace="common :: leftmenu"></div>
+
+    <div th:replace="/table/paper :: paper"></div>
+
+
+</body>
+
+<script>
+    document.getElementById("li_head1").className = "active";
+
+    let search = "[[${search}]]";
+    if (search === "general") {
+        document.getElementById("a_general").style.backgroundColor = "#4CAF50";
+        document.getElementById("a_general").style.color = "white";
+    }
+    else if (search === "advanced") {
+        document.getElementById("a_advanced").style.backgroundColor = "#4CAF50";
+        document.getElementById("a_advanced").style.color = "white";
+    }
+    else {
+        document.getElementById("a_search").style.backgroundColor = "#4CAF50";
+        document.getElementById("a_search").style.color = "white";
+    }
+</script>
+
+</html>

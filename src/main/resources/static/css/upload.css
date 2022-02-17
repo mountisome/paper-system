@@ -1,0 +1,46 @@
+.container-fluid {
+    background-color: lightskyblue;
+}
+
+.col-md-2 {
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    height: 600px;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    border: 1px solid #555;
+    text-align: center;
+}
+
+.left-menu {
+    float: left;
+}
+
+.right-content {
+    float: left;
+}
+
+#ul_head {
+    background-color: #5bc0de;
+}
+
+.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#li_head1 a:hover:not(.active) {
+    background-color: #555;
+    color: white;
+}
+
+#li_head2 a:hover:not(.active) {
+    background-color: #555;
+    color: white;
+}
+
+#li_head3 a:hover:not(.active) {
+    background-color: #555;
+    color: white;
+}

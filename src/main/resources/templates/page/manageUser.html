@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>论文检索系统</title>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/mainstyle.css}">
+</head>
+
+<body>
+    <div th:replace="common :: commonheader"></div>
+
+    <div th:replace="common :: leftmenu"></div>
+
+    <div class="right-content col-md-10">
+        <br>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th style="background-color: lightblue;">序号</th>
+                    <th style="background-color: lightblue;">用户名</th>
+                    <th style="background-color: lightblue;">密码</th>
+                    <th style="background-color: lightblue;">电话</th>
+                    <th style="background-color: lightblue;">邮箱</th>
+                    <th style="background-color: lightblue;">添加时间</th>
+                    <th style="background-color: lightblue;">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="user, userStat : ${userList}">
+                    <td>[[${userStat.count + (pageInfo.pageNum - 1) * pageInfo.pageSize}]]</td>
+                    <td>[[${user.name}]]</td>
+                    <td>[[${user.pwd}]]</td>
+                    <td>[[${user.phone}]]</td>
+                    <td>[[${user.mailbox}]]</td>
+                    <td>[[${user.addtime}]]</td>
+                    <td>
+                        <a th:href="@{/admin/findUserById(id=${user.id})}">修改</a>
+                        <a th:href="@{/admin/deleteUser(id=${user.id})}" onclick="return deleteUser()">删除</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+<script>
+    function deleteUser() {
+        let userNum = "[[${userNum}]]";
+        if (userNum === "1") {
+            alert("无法删除，用户数量必须大于0！");
+            return false;
+        }
+        const r = confirm("确定删除此用户？");
+        if (r === true) {
+            alert("删除成功");
+            return true;
+        }
+        return false;
+    }
+
+    document.getElementById("li_head2").className = "active";
+
+    document.getElementById("a_manageUser").style.backgroundColor = "#4CAF50";
+    document.getElementById("a_manageUser").style.color = "white";
+</script>
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>论文检索系统</title>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+
+<body>
+    <div class="right-content col-md-10" th:fragment="generalSearch" th:switch="${session.loginer}">
+        <form class="form-inline" th:case="'user'" th:action="@{/user/findAllPapers}" method="post" style="margin-top: 10px;">
+            <div class="form-group">
+                <label>搜索：</label>
+                <input type="text" name="subTitle">
+            </div>
+            <button type="submit">检索</button>
+        </form>
+        <form class="form-inline" th:case="'admin'" th:action="@{/admin/findAllPapers}" method="post" style="margin-top: 10px;">
+            <div class="form-group">
+                <label>搜索：</label>
+                <input type="text" name="subTitle">
+            </div>
+            <button type="submit">检索</button>
+        </form>
+    </div>
+</body>
+
+</html>

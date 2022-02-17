@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mountisome.paper_system.dao.AdminManageMapper">
+
+    <!--查询所有的系统管理员-->
+    <select id="findAllAdmins" resultType="com.mountisome.paper_system.entity.Admin">
+        select * from admin
+    </select>
+
+    <!--通过用户名查询系统管理员-->
+    <select id="findByAdminName" parameterType="String" resultType="com.mountisome.paper_system.entity.Admin">
+        select * from admin where name like "%"#{name}"%"
+    </select>
+
+    <!--通过用户名查询系统管理员的密码-->
+    <select id="findPwdByAdminName" parameterType="String" resultType="String">
+        select pwd from admin where name=#{name}
+    </select>
+
+    <!--通过序号删除系统管理员-->
+    <delete id="deleteByAdminId" parameterType="int">
+        delete from admin where id=#{id}
+    </delete>
+
+    <!--添加系统管理员-->
+    <insert id="addNewAdmin" parameterType="com.mountisome.paper_system.entity.Admin">
+        insert into admin(name, pwd, addtime) values (#{name},#{pwd},#{addtime})
+    </insert>
+
+    <!--修改系统管理员的密码-->
+    <update id="modifyByAdminName" parameterType="com.mountisome.paper_system.entity.Admin">
+        update admin set pwd=#{pwd} where name=#{name}
+    </update>
+
+</mapper>

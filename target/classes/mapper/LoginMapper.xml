@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mountisome.paper_system.dao.LoginMapper">
+
+    <!--通过用户名查询普通用户-->
+    <select id="findUserByName" resultType="com.mountisome.paper_system.entity.User" parameterType="String">
+        select * from user where name=#{name}
+    </select>
+
+    <!--通过用户名查询系统管理员-->
+    <select id="findAdminByName" resultType="com.mountisome.paper_system.entity.Admin" parameterType="String">
+        select * from admin where name=#{name}
+    </select>
+
+    <select id="findAllUsers" resultType="com.mountisome.paper_system.entity.User">
+        select * from user
+    </select>
+
+</mapper>

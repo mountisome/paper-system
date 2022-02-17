@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>论文检索系统</title>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/mainstyle.css}">
+</head>
+
+<body>
+    <div th:replace="common :: commonheader"></div>
+
+    <div th:replace="common :: leftmenu"></div>
+
+    <div class="right-content col-md-10">
+        <br>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th style="background-color: lightblue;">序号</th>
+                    <th style="background-color: lightblue;">用户名</th>
+                    <th style="background-color: lightblue;">密码</th>
+                    <th style="background-color: lightblue;">添加时间</th>
+                    <th style="background-color: lightblue;">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="admin, adminStat : ${adminList}">
+                    <td>[[${adminStat.count + (pageInfo.pageNum - 1) * pageInfo.pageSize}]]</td>
+                    <td>[[${admin.name}]]</td>
+                    <td>[[${admin.pwd}]]</td>
+                    <td>[[${admin.addtime}]]</td>
+                    <td><a th:href="@{/admin/deleteAdmin(id=${admin.id})}" onclick="return deleteAdmin()">删除</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+<script>
+    document.getElementById("li_head3").className = "active";
+
+    document.getElementById("a_manageAdmin").style.backgroundColor = "#4CAF50";
+    document.getElementById("a_manageAdmin").style.color = "white";
+
+    function deleteAdmin() {
+        let adminNum = "[[${adminNum}]]";
+        if (adminNum === "1") {
+            alert("无法删除，管理员数量必须大于0！");
+            return false;
+        }
+        return true;
+    }
+</script>
+
+</html>

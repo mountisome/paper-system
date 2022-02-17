@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>论文检索系统</title>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+
+<body>
+    <div class="right-content col-md-10" th:fragment="paperInfo">
+        <form th:action="@{/admin/updatePaper}" method="post">
+            <input type="hidden" name="id" th:value="${paper.id}">
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <td>分类号：</td>
+                        <td><input type="text" name="classnum" th:value="${paper.classnum}"></td>
+                    </tr>
+                    <tr>
+                        <td>题名：</td>
+                        <td><input type="text" name="title" th:value="${paper.title}"></td>
+                    </tr>
+                    <tr>
+                        <td>作者：</td>
+                        <td><input type="text" name="author" th:value="${paper.author}"></td>
+                    </tr>
+                    <tr>
+                        <td>摘要：</td>
+                        <td><textarea class="form-control" rows="5" name="abstracts">[[${paper.abstracts}]]</textarea></td>
+                    </tr>
+                    <tr>
+                        <td>关键字：</td>
+                        <td><input type="text" name="keyword" th:value="${paper.keyword}"></td>
+                    </tr>
+                    <tr>
+                        <td>出处：</td>
+                        <td><input type="text" name="genre" th:value="${paper.genre}"></td>
+                    </tr>
+                    <tr>
+                        <td>论文类别：</td>
+                        <td>
+                            <select name="type">
+                                <option value="期刊文章">期刊文章</option>
+                                <option value="学位论文">学位论文</option>
+                                <option value="电子文献">电子文献</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>发表时间：</td>
+                        <td><input type="text" name="time" th:value="${paper.time}"></td>
+                    </tr>
+                    <tr>
+                        <td>下载次数：</td>
+                        <td><input type="text" name="download" th:value="${paper.download}"></td>
+                    </tr>
+                    <tr>
+                        <td>上传文件：</td>
+                        <td><input type="file" name="uploadFile" th:value="${paper.address}"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <input type="submit" value="确认修改">
+                            <input type="button" value="返回" onclick="history.back()">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</body>
+
+</html>

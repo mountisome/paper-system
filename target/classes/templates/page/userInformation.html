@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>论文检索系统</title>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/mainstyle.css}">
+</head>
+
+<body>
+    <div th:replace="common :: commonheader"></div>
+
+    <div th:replace="common :: leftmenu"></div>
+
+    <div class="right-content col-md-10">
+        <form th:action="@{/user/modifyUser}" method="post" style="margin-top: 20px;" onsubmit="return modify()">
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <td>用户名：</td>
+                        <td><input type="text" name="name" id="name" th:value="${session.loginName}" style="width: 300px;"></td>
+                    </tr>
+                    <tr>
+                        <td>原密码：</td>
+                        <td><input type="password" name="oldPwd" id="oldPwd" style="width: 300px;"></td>
+                    </tr>
+                    <tr>
+                        <td>新密码：</td>
+                        <td><input type="password" name="newPwd" id="newPwd" style="width: 300px;"></td>
+                    </tr>
+                    <tr>
+                        <td>电话：</td>
+                        <td><input type="text" name="phone" id="phone" th:value="${phone}" style="width: 300px;"></td>
+                    </tr>
+                    <tr>
+                        <td>邮箱：</td>
+                        <td><input type="text" name="mailbox" id="mailbox" th:value="${mailbox}" style="width: 300px;"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <input type="submit" value="确认修改">
+                            <input type="reset" value="重置">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</body>
+
+<script>
+    document.getElementById("li_head2").className = "active";
+
+    document.getElementById("a_update").style.backgroundColor = "#4CAF50";
+    document.getElementById("a_update").style.color = "white";
+
+    function modify() {
+        let name = document.getElementById("name").value;
+        let oldPwd = document.getElementById("oldPwd").value;
+        let newPwd = document.getElementById("newPwd").value;
+        let phone = document.getElementById("phone").value;
+        let mailbox = document.getElementById("mailbox").value;
+        let pwd = "[[${pwd}]]";
+
+        if (name === "" || oldPwd === "" || newPwd === "" || phone === "" || mailbox === "") {
+            alert("请填写完整信息！");
+            return false;
+        }
+        if (oldPwd !== pwd) {
+            alert("原密码错误！");
+            return false;
+        }
+        alert("用户信息修改成功");
+        return true;
+    }
+</script>
+
+</html>
