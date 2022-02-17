@@ -115,6 +115,6 @@ paper-system是一个论文检索系统，基于Spring Boot+MyBatis+Bootstrap+Th
 - 根据sql文件夹中的`paper_system.sql`文件建立好数据库
 - 根据`pom.xml`安装需要的包
 - 部署Spring Boot启动配置
-- 启动项目
+- 启动项目 
 - 在浏览器中输入`http://localhost:8080/`跳转到登录界面
 - 用户名为`name1`，密码为`123`登录论文检索系统
