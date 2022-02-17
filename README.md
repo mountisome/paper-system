@@ -1,15 +1,18 @@
-<<<<<<< HEAD
 ## paper-system
 
 ### 1.简要介绍
 
 paper-system是一个论文检索系统，基于Spring Boot+MyBatis+Bootstrap+Thymeleaf。本系统实现了用户权限控制：分为**普通用户**和**系统管理员**两部分；普通用户具有**综合检索**，**复合检索**，**网络检索**，**上传论文**，**个人信息管理**的功能；系统管理员具有**论文信息管理**，**论文检索**，**上传论文**，**普通用户管理**，**系统管理员管理**的功能。本系统能有效减少用户查找论文的时间和开销。
 
+<br>
+
 
 
 ### 2.总体模块设计
 
 <div align=center><img src="https://gitee.com/mountisome/images/raw/master/img/科研训练.jpg" width="70%"></div>
+
+<br>
 
 
 
@@ -21,6 +24,8 @@ paper-system是一个论文检索系统，基于Spring Boot+MyBatis+Bootstrap+Th
 - CSS样式：Bootstrap
 - 数据库连接池：Druid
 - 数据库：MySQL
+
+<br>
 
 
 
@@ -41,6 +46,8 @@ paper-system是一个论文检索系统，基于Spring Boot+MyBatis+Bootstrap+Th
 - 上传论文：上传本地论文
 - 普通用户管理：管理所有普通用户的信息
 - 系统管理员管理：管理所有系统管理员的信息
+
+<br>
 
 
 
@@ -98,6 +105,8 @@ paper-system是一个论文检索系统，基于Spring Boot+MyBatis+Bootstrap+Th
 
 <div align=center><img src="https://gitee.com/mountisome/images/raw/master/img/Snipaste_2022-02-17_12-09-31.jpg"></div>
 
+<br>
+
 
 
 ### 6.使用教程
@@ -109,42 +118,3 @@ paper-system是一个论文检索系统，基于Spring Boot+MyBatis+Bootstrap+Th
 - 启动项目
 - 在浏览器中输入`http://localhost:8080/`跳转到登录界面
 - 用户名为`name1`，密码为`123`登录论文检索系统
-=======
-# paper-system
-
-#### 介绍
-基于Spring Boot开发的论文检索系统
-
-#### 软件架构
-软件架构说明
-
-
-#### 安装教程
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 使用说明
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 参与贡献
-
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
-
-
-#### 特技
-
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
->>>>>>> 1ba864fc1761975a6a87f19913aea717fae1921d
