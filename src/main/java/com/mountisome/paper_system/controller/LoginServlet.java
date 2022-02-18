@@ -1,14 +1,17 @@
 package com.mountisome.paper_system.controller;
 
+import com.alibaba.druid.support.json.JSONUtils;
 import com.mountisome.paper_system.entity.User;
 import com.mountisome.paper_system.service.LoginService;
 import com.mountisome.paper_system.service.RegisterService;
+import com.mountisome.paper_system.service.UserManageService;
 import com.mountisome.paper_system.utils.ValidateImageCodeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
@@ -19,6 +22,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 @Controller
 public class LoginServlet {
@@ -28,6 +33,9 @@ public class LoginServlet {
 
     @Autowired
     private RegisterService registerService;
+
+    @Autowired
+    private UserManageService userManageService;
 
     @GetMapping("/")
     public String loginPage(HttpSession session) {
@@ -78,8 +86,16 @@ public class LoginServlet {
     }
 
     @RequestMapping("/registerPage")
-    public String registerPage() {
-        return "/page/register";
+    public ModelAndView registerPage() {
+        List<User> userList = userManageService.findAllUsers();
+        List<String> nameList = new LinkedList<>();
+        for (User user : userList) {
+            nameList.add(user.getName());
+        }
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("nameList", nameList);
+        modelAndView.setViewName("/page/register");
+        return modelAndView;
     }
 
     @RequestMapping("/register")

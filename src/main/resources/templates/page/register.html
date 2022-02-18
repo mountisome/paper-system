@@ -37,16 +37,23 @@
     </div>
 </body>
 
-<script>
+<script th:inline="javascript">
     function register() {
         let name = document.getElementById("name").value;
         let pwd = document.getElementById("pwd").value;
         let phone = document.getElementById("phone").value;
         let mailbox = document.getElementById("mailbox").value;
+        let nameList = [[${nameList}]];
 
         if (name === "" || pwd === "" || phone === "" || mailbox === "") {
             alert("请输入完整信息！");
             return false;
+        }
+        for (let i = 0; i < nameList.length; i++) {
+            if (name === nameList[i]) {
+                alert("用户名已存在！");
+                return false;
+            }
         }
         alert("注册成功！");
         return true;
