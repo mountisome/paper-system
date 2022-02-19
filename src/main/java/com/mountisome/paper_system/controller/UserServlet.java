@@ -116,8 +116,8 @@ public class UserServlet {
     }
 
     @RequestMapping("/modifyUser")
-    public String modifyUser(HttpServletRequest request) throws IOException {
-        String name = request.getParameter("name");
+    public String modifyUser(HttpServletRequest request, HttpSession session) throws IOException {
+        String name = (String) session.getAttribute("loginName");
         String pwd = request.getParameter("newPwd");
         String phone = request.getParameter("phone");
         String mailbox = request.getParameter("mailbox");

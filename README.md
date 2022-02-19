@@ -118,3 +118,4 @@ paper-system是一个论文检索系统，基于Spring Boot+MyBatis+Bootstrap+Th
 - 启动项目 
 - 在浏览器中输入`http://localhost:8080/`跳转到登录界面
 - 用户名为`name1`，密码为`123`登录论文检索系统
+- **注意：我的项目放在`E:\projects\论文检索系统`文件夹下，上传的论文也会存放在该文件夹下的upload文件夹，如果想要更改存放路径，需要修改`PaperInfoServlet`的`uploadPaper`方法。**

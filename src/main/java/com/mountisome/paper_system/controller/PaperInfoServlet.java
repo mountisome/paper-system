@@ -59,7 +59,7 @@ public class PaperInfoServlet {
         // 获得上传文件的名称
         String originalFilename = uploadFile.getOriginalFilename();
         String address = "upload/" + originalFilename;
-        uploadFile.transferTo(new File("E:/projects/论文检索系统4/" + address));
+        uploadFile.transferTo(new File("E:/projects/论文检索系统/" + address)); // 在这里修改上传文件的路径
         PaperInfo paper = new PaperInfo(classnum, title, author, abstracts, keyword, genre, type, time, address, addtime, download);
         paperInfoService.addPaperInfo(paper);
         return "/page/upload";
