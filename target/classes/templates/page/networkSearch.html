@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>论文检索系统</title>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/mainstyle.css}">
+</head>
+
+<body>
+    <div th:replace="common :: commonheader"></div>
+
+    <div th:replace="common :: leftmenu"></div>
+
+    <div class="right-content col-md-10">
+        <form th:action="@{/user/networkSearch}" method="post" style="margin-top: 20px;">
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <td>请输入关键字：</td>
+                        <td><input type="text" name="keyword" style="width: 300px;"></td>
+                    </tr>
+                    <tr>
+                        <td>请输入需要爬取的页数：</td>
+                        <td><input type="text" name="page" style="width: 300px;"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input type="submit" value="检索" style="width: 100px"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</body>
+
+</html>

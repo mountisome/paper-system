@@ -14,7 +14,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.List;
 
 @Controller
@@ -124,6 +126,30 @@ public class UserServlet {
         User user = new User(name, pwd, phone, mailbox);
         userManageService.modifyByName(user);
         return "redirect:/";
+    }
+
+    @RequestMapping("/networkPage")
+    public String networkPage() {
+        return "/page/networkSearch";
+    }
+
+    @RequestMapping("/networkSearch")
+    public String networkSearch(String keyword, String page) {
+        Process process;
+        try {
+            String[] args = new String[] {"python", "E:\\projects\\论文检索系统\\获取知网作者摘要.py", keyword, page};
+            process = Runtime.getRuntime().exec(args);
+            BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line = null;
+            while ((line = in.readLine()) != null) {
+                System.out.println(line);
+            }
+            in.close();
+            process.waitFor();
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return "redirect:/user/findAllPapers";
     }
 
 }
