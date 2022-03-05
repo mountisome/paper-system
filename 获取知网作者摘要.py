@@ -8,7 +8,7 @@ import pandas as pd
 import sys
 
 browser = webdriver.Chrome(
-    executable_path='C:\\Users\\姚凯\\AppData\\Local\\Programs\\Python\\Python39\\chromedriver.exe')  # 获得驱动
+    executable_path='C:\\?\\chromedriver.exe')  # 获得驱动，?表示python所在的路径地址
 browser.implicitly_wait(10)
 browser.get('https://www.cnki.net/')  # 得到网址
 
