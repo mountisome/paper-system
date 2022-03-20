@@ -55,13 +55,13 @@ paper-system是一个论文检索系统，基于Spring Boot+MyBatis+Bootstrap+Th
 
 #### 登录界面：
 
-<div align=center><img src="https://gitee.com/mountisome/images/raw/master/img/Snipaste_2022-02-17_12-07-30.jpg"></div>
+<div align=center><img src="https://gitee.com/mountisome/images/raw/master/img/Snipaste_2022-03-20_23-02-38.jpg"></div>
 
 <br>
 
 #### 注册界面：
 
-<div align=center><img src="https://gitee.com/mountisome/images/raw/master/img/Snipaste_2022-02-17_12-07-44.jpg"></div>
+<div align=center><img src="https://gitee.com/mountisome/images/raw/master/img/Snipaste_2022-03-20_23-02-47.jpg"></div>
 
 <br>
 
