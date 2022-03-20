@@ -1,5 +1,5 @@
 .container-fluid {
-    background-color: lightskyblue;
+    background-color: darkred;
 }
 
 .col-md-2 {
@@ -34,11 +34,11 @@ th {
 }
 
 #ul_head {
-    background-color: #5bc0de;
+    background-color: grey;
 }
 
 .active {
-    background-color: #4CAF50;
+    background-color: dimgrey;
     color: white;
 }
 
