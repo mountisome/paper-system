@@ -55,55 +55,61 @@ paper-system是一个论文检索系统，基于Spring Boot+MyBatis+Bootstrap+Th
 
 #### 登录界面：
 
-<div align=center><img src="https://gitee.com/mountisome/images/raw/master/img/Snipaste_2022-03-20_23-02-38.jpg"></div>
+<div align=center><img src="https://gitee.com/mountisome/images/raw/master/img/Snipaste_2022-03-22_21-37-30.jpg"></div>
 
 <br>
 
 #### 注册界面：
 
-<div align=center><img src="https://gitee.com/mountisome/images/raw/master/img/Snipaste_2022-03-20_23-02-47.jpg"></div>
+<div align=center><img src="https://gitee.com/mountisome/images/raw/master/img/Snipaste_2022-03-22_21-37-35.jpg"></div>
 
 <br>
 
 #### 综合检索界面：
 
-<div align=center><img src="https://gitee.com/mountisome/images/raw/master/img/Snipaste_2022-02-17_12-08-44.jpg"></div>
+<div align=center><img src="https://gitee.com/mountisome/images/raw/master/img/Snipaste_2022-03-22_21-24-01.jpg"></div>
 
 <br>
 
 #### 复合检索界面：
 
-<div align=center><img src="https://gitee.com/mountisome/images/raw/master/img/Snipaste_2022-02-17_12-08-54.jpg"></div>
+<div align=center><img src="https://gitee.com/mountisome/images/raw/master/img/Snipaste_2022-03-22_21-24-28.jpg"></div>
+
+<br>
+
+#### 网络检索界面：
+
+<div align=center><img src="https://gitee.com/mountisome/images/raw/master/img/Snipaste_2022-03-22_21-24-51.jpg"></div>
 
 <br>
 
 #### 上传论文界面：
 
-<div align=center><img src="https://gitee.com/mountisome/images/raw/master/img/Snipaste_2022-02-17_12-08-59.jpg"></div>
+<div align=center><img src="https://gitee.com/mountisome/images/raw/master/img/Snipaste_2022-03-22_21-24-40.jpg"></div>
 
 <br>
 
 #### 个人信息管理界面：
 
-<div align=center><img src="https://gitee.com/mountisome/images/raw/master/img/Snipaste_2022-02-17_12-09-05.jpg"></div>
+<div align=center><img src="https://gitee.com/mountisome/images/raw/master/img/Snipaste_2022-03-22_21-25-03.jpg"></div>
 
 <br>
 
 #### 系统管理员的论文检索界面：
 
-<div align=center><img src="https://gitee.com/mountisome/images/raw/master/img/Snipaste_2022-02-17_12-09-20.jpg"></div>
+<div align=center><img src="https://gitee.com/mountisome/images/raw/master/img/Snipaste_2022-03-22_21-25-23.jpg"></div>
 
 <br>
 
 #### 普通用户管理界面：
 
-<div align=center><img src="https://gitee.com/mountisome/images/raw/master/img/Snipaste_2022-02-17_12-09-26.jpg"></div>
+<div align=center><img src="https://gitee.com/mountisome/images/raw/master/img/Snipaste_2022-03-22_21-25-31.jpg"></div>
 
 <br>
 
 #### 系统管理员管理界面：
 
-<div align=center><img src="https://gitee.com/mountisome/images/raw/master/img/Snipaste_2022-02-17_12-09-31.jpg"></div>
+<div align=center><img src="https://gitee.com/mountisome/images/raw/master/img/Snipaste_2022-03-22_21-25-39.jpg"></div>
 
 <br>
 

@@ -15,6 +15,13 @@
 
     <div class="right-content col-md-10">
         <br>
+        <form th:action="@{/admin/findAllUsers}" method="post">
+            <div>
+                <label>用户名：</label>
+                <input type="text" name="name">
+                <button type="submit">检索</button>
+            </div>
+        </form>
         <table class="table table-bordered">
             <thead>
                 <tr>

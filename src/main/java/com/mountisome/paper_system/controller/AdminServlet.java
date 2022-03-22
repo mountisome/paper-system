@@ -52,29 +52,24 @@ public class AdminServlet {
     }
 
     @GetMapping("/findAllAdmins")
-    public ModelAndView findAllAdmins(HttpSession session, String currentPage, String name) throws IOException {
+    public ModelAndView findAllAdmins(HttpSession session, String currentPage) throws IOException {
         session.setAttribute("function", "adminInfoAdmin");
         if(currentPage == null) {
             currentPage = "1";
         }
         int page = Integer.parseInt(currentPage);
-        if(name == null) {
-            name = "";
-        }
         ModelAndView modelAndView = new ModelAndView();
         PageHelper.startPage(page, 5);
-        List<Admin> adminList = adminManageService.findByAdminName(name);
+        List<Admin> adminList = adminManageService.findAllAdmins();
         PageInfo<Admin> pageInfo = new PageInfo<Admin>(adminList);
-        modelAndView.addObject("name", name);
         modelAndView.addObject("adminList", adminList);
         modelAndView.addObject("pageInfo", pageInfo);
-        List<Admin> admins = adminManageService.findAllAdmins();
-        modelAndView.addObject("adminNum", admins.size());
+        modelAndView.addObject("adminNum", adminList.size());
         modelAndView.setViewName("/page/manageAdmin");
         return modelAndView;
     }
 
-    @GetMapping("/findAllUsers")
+    @RequestMapping("/findAllUsers")
     public ModelAndView findAllUsers(HttpSession session, String currentPage, String name) throws IOException {
         session.setAttribute("function", "userInfoAdmin");
         if(currentPage == null) {
@@ -91,8 +86,7 @@ public class AdminServlet {
         modelAndView.addObject("name", name);
         modelAndView.addObject("userList", userList);
         modelAndView.addObject("pageInfo", pageInfo);
-        List<User> users = userManageService.findAllUsers();
-        modelAndView.addObject("userNum", users.size());
+        modelAndView.addObject("userNum", userList.size());
         modelAndView.setViewName("/page/manageUser");
         return modelAndView;
     }

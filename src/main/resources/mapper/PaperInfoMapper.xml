@@ -5,7 +5,7 @@
 
     <!--查询所有论文-->
     <select id="findAllPapers" resultType="com.mountisome.paper_system.entity.PaperInfo">
-        select * from paperinfo
+        select * from paperinfo group by id DESC
     </select>
 
     <!--通过id查询论文-->
@@ -31,6 +31,7 @@
                 or keyword like "%"#{keyword}"%"
             </if>
         </where>
+        group by id DESC
     </select>
 
     <!--复合检索论文-->
@@ -54,6 +55,7 @@
                 and type like "%"#{type}"%"
             </if>
         </where>
+        group by id DESC
     </select>
 
     <!--添加论文-->
