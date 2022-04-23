@@ -13,16 +13,139 @@
 
     <div th:replace="common :: leftmenu"></div>
 
-    <div th:replace="/form/advancedSearch :: advancedSearch"></div>
+    <div class="right-content col-md-10" th:fragment="advancedSearch">
+        <form class="form-inline" th:action="@{/user/findAllPapersMulti}" method="post" style="margin-top: 20px;">
+            <div class="form-group">
+                <span>搜索：</span>
+                <label>分类号：</label>
+                <input type="text" name="classnum" id="classnum">
+                <label>论文名称：</label>
+                <input type="text" name="title" id="title">
+                <label>作者：</label>
+                <input type="text" name="author" id="author">
+                <label>关键字：</label>
+                <input type="text" name="keyword" id="keyword">
+                <label>论文类别：</label>
+                <select name="type" id="type">
+                    <option value="不限">不限</option>
+                    <option value="学位论文">学位论文</option>
+                    <option value="期刊文章">期刊文章</option>
+                    <option value="电子文献">电子文献</option>
+                </select>
+            </div>
+            <button type="submit" onclick="return search()">检索</button>
+        </form>
+    </div>
 
-    <div th:replace="/table/paperInfoMulti :: paperInfoMulti"></div>
+    <div class="right-content col-md-10" th:if="${title} != 'null'" style="margin-top: 20px">
+        <table class="table table-bordered" id="table-advanced">
+            <thead>
+                <tr>
+                    <th style="width: 80px;background-color: lightblue;">序号</th>
+                    <th style="background-color: lightblue;">分类号</th>
+                    <th style="width: 500px;background-color: lightblue;">论文名称</th>
+                    <th style="width: 70px;background-color: lightblue;">作者</th>
+                    <th style="width: 500px;background-color: lightblue;">关键字</th>
+                    <th style="width: 150px;background-color: lightblue;">论文类别</th>
+                    <th style="width: 170px;background-color: lightblue;">发表时间</th>
+                    <th style="width: 170px;background-color: lightblue;">下载次数</th>
+                    <th style="width: 150px;background-color: lightblue;">下载</th>
+                    <th style="width: 150px;background-color: lightblue;">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="paperInfo : ${paperInfoList}">
+                    <td>[[${paperInfoStat.count + (pageInfo.pageNum - 1) * pageInfo.pageSize}]]</td>
+                    <td>[[${paperInfo.classnum}]]</td>
+                    <td>[[${paperInfo.title}]]</td>
+                    <td>[[${paperInfo.author}]]</td>
+                    <td>[[${paperInfo.keyword}]]</td>
+                    <td>[[${paperInfo.type}]]</td>
+                    <td>[[${paperInfo.time}]]</td>
+                    <td>[[${paperInfo.download}]]</td>
+                    <td><a th:href="@{/paperinfo/downloadPaper(id=${paperInfo.id}, address=${paperInfo.address})}">
+                        点此下载</a></td>
+                    <td><a th:href="@{/paperinfo/showPaperInfo(id=${paperInfo.id})}">查看</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="row-fluid">
+            <div>
+                当前第[[${pageInfo.pageNum}]]页  总计[[${pageInfo.pages}]]页  共[[${pageInfo.total}]]条记录
+            </div>
+            <div>
+                <ul class="pagination" th:if="${pageInfo.total == 0 || (pageInfo.isFirstPage && pageInfo.isLastPage)}">
+                </ul>
+                <ul class="pagination" th:if="${pageInfo.isFirstPage && !pageInfo.isLastPage}">
+                    <li><a th:href="@{/user/findAllPapersMulti(currentPage=${pageInfo.nextPage}, subTitle=${subTitle})}">
+                        下一页</a></li>
+                    <li><a th:href="@{/user/findAllPapersMulti(currentPage=${pageInfo.pages}, subTitle=${subTitle})}">
+                        尾页</a></li>
+                </ul>
+                <ul class="pagination" th:if="${pageInfo.isLastPage && !pageInfo.isFirstPage && pageInfo.total != 0}">
+                    <li><a th:href="@{/user/findAllPapersMulti(currentPage=${pageInfo.firstPage}, subTitle=${subTitle})}">
+                        首页</a></li>
+                    <li><a th:href="@{/user/findAllPapersMulti(currentPage=${pageInfo.prePage}, subTitle=${subTitle})}">
+                        上一页</a></li>
+                </ul>
+                <ul class="pagination" th:if="${!pageInfo.isLastPage && !pageInfo.isFirstPage}">
+                    <li><a th:href="@{/user/findAllPapersMulti(currentPage=${pageInfo.firstPage}, subTitle=${subTitle})}">
+                        首页</a></li>
+                    <li><a th:href="@{/user/findAllPapersMulti(currentPage=${pageInfo.prePage}, subTitle=${subTitle})}">
+                        上一页</a></li>
+                    <li><a th:href="@{/user/findAllPapersMulti(currentPage=${pageInfo.nextPage}, subTitle=${subTitle})}">
+                        下一页</a></li>
+                    <li><a th:href="@{/user/findAllPapersMulti(currentPage=${pageInfo.pages}, subTitle=${subTitle})}">
+                        尾页</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </body>
 
-<script>
+<script th:inline="javascript">
     document.getElementById("li_head1").className = "active";
 
     document.getElementById("a_advanced").style.backgroundColor = "#4CAF50";
     document.getElementById("a_advanced").style.color = "white";
+
+    let classnum = [[${classnum}]].toString();
+    let title = [[${title}]].toString();
+    let author = [[${author}]].toString();
+    let keyword = [[${keyword}]].toString();
+    let table = document.getElementById("table-advanced");
+    let row = table.rows.length;
+    for (let i = 1; i < row; i++) {
+        let pclassnum = table.rows[i].cells[1];
+        let pclassnums = pclassnum.innerHTML;
+        let ptitle = table.rows[i].cells[2];
+        let ptitles = ptitle.innerHTML;
+        let pauthor = table.rows[i].cells[3];
+        let pauthors = pauthor.innerHTML;
+        let pkeyword = table.rows[i].cells[4];
+        let pkeywords = pkeyword.innerHTML;
+        let value1 = pclassnums.split(classnum);
+        let value2 = ptitles.split(title);
+        let value3 = pauthors.split(author);
+        let value4 = pkeywords.split(keyword);
+        pclassnum.innerHTML = value1.join('<span style="color: red; font-weight: bold">' + classnum + '</span>');
+        ptitle.innerHTML = value2.join('<span style="color: red; font-weight: bold">' + title + '</span>');
+        pauthor.innerHTML = value3.join('<span style="color: red; font-weight: bold">' + author + '</span>');
+        pkeyword.innerHTML = value4.join('<span style="color: red; font-weight: bold">' + keyword + '</span>');
+    }
+
+    function search() {
+        let classnum = document.getElementById("classnum").value;
+        let title = document.getElementById("title").value;
+        let author = document.getElementById("author").value;
+        let keyword = document.getElementById("keyword").value;
+        if (classnum === "" && title === "" && author === "" && keyword === "") {
+            alert("请输入检索内容！");
+            return false;
+        }
+        return true;
+    }
 </script>
 
 </html>

@@ -54,10 +54,8 @@ public class AdminServlet {
     @GetMapping("/findAllAdmins")
     public ModelAndView findAllAdmins(HttpSession session, String currentPage) throws IOException {
         session.setAttribute("function", "adminInfoAdmin");
-        if(currentPage == null) {
-            currentPage = "1";
-        }
-        int page = Integer.parseInt(currentPage);
+        int page = 1;
+        if (currentPage != null) page = Integer.parseInt(currentPage);
         ModelAndView modelAndView = new ModelAndView();
         PageHelper.startPage(page, 5);
         List<Admin> adminList = adminManageService.findAllAdmins();
@@ -72,13 +70,9 @@ public class AdminServlet {
     @RequestMapping("/findAllUsers")
     public ModelAndView findAllUsers(HttpSession session, String currentPage, String name) throws IOException {
         session.setAttribute("function", "userInfoAdmin");
-        if(currentPage == null) {
-            currentPage = "1";
-        }
-        int page = Integer.parseInt(currentPage);
-        if(name == null) {
-            name = "";
-        }
+        int page = 1;
+        if (currentPage != null) page = Integer.parseInt(currentPage);
+        if(name == null) name = "null";
         PageHelper.startPage(page, 5);
         List<User> userList = userManageService.findByUserName(name);
         PageInfo<User> pageInfo = new PageInfo<User>(userList);
@@ -91,27 +85,23 @@ public class AdminServlet {
         return modelAndView;
     }
 
-    @GetMapping("/findAllPapers")
+    @RequestMapping("/findAllPapers")
     public ModelAndView findAllPapers(String currentPage, String subTitle, HttpSession session) throws IOException {
         session.setAttribute("function", "paperInfoAdmin");
-        if(currentPage == null) {
-            currentPage = "1";
-        }
-        int page = Integer.parseInt(currentPage);
-        if(subTitle == null) {
-            subTitle = "";
-        }
+        int page = 1;
+        if (currentPage != null) page = Integer.parseInt(currentPage);
+        if(subTitle == null) subTitle = "null";
         PaperInfo paperInfo = new PaperInfo();
         paperInfo.setTitle(subTitle);
         paperInfo.setAuthor(subTitle);
         paperInfo.setAbstracts(subTitle);
         paperInfo.setKeyword(subTitle);
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("subTitle", subTitle);
         // 设置分页相关参数  当前页+每页显示的条数
         PageHelper.startPage(page, 5);
         List<PaperInfo> paperInfoList = paperInfoService.findByPaperInfo(paperInfo);
         PageInfo<PaperInfo> pageInfo = new PageInfo<PaperInfo>(paperInfoList);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("subTitle", subTitle);
         modelAndView.addObject("paperInfoList", paperInfoList);
         modelAndView.addObject("pageInfo", pageInfo);
         modelAndView.setViewName("/page/generalSearchByAdmin");

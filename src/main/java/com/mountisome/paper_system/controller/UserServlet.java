@@ -33,13 +33,9 @@ public class UserServlet {
     public String findAllPapers(HttpSession session, String currentPage, String subTitle, Model model) throws IOException {
         session.setAttribute("function", "paperInfoUser");
         session.setAttribute("search", "general");
-        if(currentPage == null) {
-            currentPage = "1";
-        }
-        int page = Integer.parseInt(currentPage);
-        if(subTitle == null) {
-            subTitle = "";
-        }
+        if (subTitle == null) subTitle = "null";
+        int page = 1;
+        if (currentPage != null) page = Integer.parseInt(currentPage);
         PaperInfo paperInfo = new PaperInfo();
         paperInfo.setTitle(subTitle);
         paperInfo.setAuthor(subTitle);
@@ -59,10 +55,8 @@ public class UserServlet {
     public ModelAndView findAllPapersMulti(HttpServletRequest request, HttpSession session) throws IOException {
         session.setAttribute("search", "advanced");
         String cPage = request.getParameter("currentPage");
-        if (cPage == null) {
-            cPage = "1";
-        }
-        int currentPage = Integer.parseInt(cPage);
+        int currentPage = 1;
+        if (cPage != null) currentPage = Integer.parseInt(cPage);
         String classnum = request.getParameter("classnum");
         String title = request.getParameter("title");
         String author = request.getParameter("author");
@@ -72,7 +66,7 @@ public class UserServlet {
             classnum = "";
         }
         if (title == null) {
-            title = "";
+            title = "null";
         }
         if (author == null) {
             author = "";

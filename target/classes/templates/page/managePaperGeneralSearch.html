@@ -13,16 +13,110 @@
 
     <div th:replace="common :: leftmenu"></div>
 
-    <div th:replace="/form/generalSearch :: generalSearch"></div>
+    <div class="right-content col-md-10">
+        <form class="form-inline" th:action="@{/user/findAllPapers}" method="post" style="margin-top: 20px;">
+            <div class="form-group">
+                <label style="font-size: 25px">搜索：</label>
+                <input type="text" name="subTitle" id="subTitle" style="font-size: 25px; border-radius: 4px;
+                border: 2px solid #ccc;">
+            </div>
+            <button type="submit" onclick="return search()" style="font-size: 20px;">检索</button>
+        </form>
+    </div>
 
-    <div th:replace="/table/paperInfo :: paperInfo"></div>
+    <div class="right-content col-md-10" th:fragment="paperInfo" th:if="${subTitle} != 'null'" style="margin-top: 20px">
+        <table class="table table-bordered" id="table-general">
+            <thead>
+                <tr>
+                    <th style="width: 80px;background-color: lightblue;">序号</th>
+                    <th style="background-color: lightblue;">分类号</th>
+                    <th style="width: 500px;background-color: lightblue;">论文名称</th>
+                    <th style="width: 70px;background-color: lightblue;">作者</th>
+                    <th style="width: 500px;background-color: lightblue;">关键字</th>
+                    <th style="width: 150px;background-color: lightblue;">论文类别</th>
+                    <th style="width: 170px;background-color: lightblue;">发表时间</th>
+                    <th style="width: 170px;background-color: lightblue;">下载次数</th>
+                    <th style="width: 150px;background-color: lightblue;">下载</th>
+                    <th style="width: 150px;background-color: lightblue;">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="paperInfo, paperInfoStat : ${paperInfoList}">
+                    <td>[[${paperInfoStat.count + (pageInfo.pageNum - 1) * pageInfo.pageSize}]]</td>
+                    <td>[[${paperInfo.classnum}]]</td>
+                    <td id="ptitle">[[${paperInfo.title}]]</td>
+                    <td>[[${paperInfo.author}]]</td>
+                    <td>[[${paperInfo.keyword}]]</td>
+                    <td>[[${paperInfo.type}]]</td>
+                    <td>[[${paperInfo.time}]]</td>
+                    <td>[[${paperInfo.download}]]</td>
+                    <td><a th:href="@{/paperinfo/downloadPaper(id=${paperInfo.id}, address=${paperInfo.address})}">
+                        点此下载</a></td>
+                    <td><a th:href="@{/paperinfo/showPaperInfo(id=${paperInfo.id})}">查看</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="row-fluid">
+            <div>
+                当前第[[${pageInfo.pageNum}]]页  总计[[${pageInfo.pages}]]页  共[[${pageInfo.total}]]条记录
+            </div>
+            <div>
+                <ul class="pagination" th:if="${pageInfo.total == 0 || (pageInfo.isFirstPage && pageInfo.isLastPage)}">
+                </ul>
+                <ul class="pagination" th:if="${pageInfo.isFirstPage && !pageInfo.isLastPage}">
+                    <li><a th:href="@{/user/findAllPapers(currentPage=${pageInfo.nextPage}, subTitle=${subTitle})}">
+                        下一页</a></li>
+                    <li><a th:href="@{/user/findAllPapers(currentPage=${pageInfo.pages}, subTitle=${subTitle})}">
+                        尾页</a></li>
+                </ul>
+                <ul class="pagination" th:if="${pageInfo.isLastPage && !pageInfo.isFirstPage && pageInfo.total != 0}">
+                    <li><a th:href="@{/user/findAllPapers(currentPage=${pageInfo.firstPage}, subTitle=${subTitle})}">
+                        首页</a></li>
+                    <li><a th:href="@{/user/findAllPapers(currentPage=${pageInfo.prePage}, subTitle=${subTitle})}">
+                        上一页</a></li>
+                </ul>
+                <ul class="pagination" th:if="${!pageInfo.isLastPage && !pageInfo.isFirstPage}">
+                    <li><a th:href="@{/user/findAllPapers(currentPage=${pageInfo.firstPage}, subTitle=${subTitle})}">
+                        首页</a></li>
+                    <li><a th:href="@{/user/findAllPapers(currentPage=${pageInfo.prePage}, subTitle=${subTitle})}">
+                        上一页</a></li>
+                    <li><a th:href="@{/user/findAllPapers(currentPage=${pageInfo.nextPage}, subTitle=${subTitle})}">
+                        下一页</a></li>
+                    <li><a th:href="@{/user/findAllPapers(currentPage=${pageInfo.pages}, subTitle=${subTitle})}">
+                        尾页</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </body>
 
-<script>
+<script th:inline="javascript">
     document.getElementById("li_head1").className = "active";
 
     document.getElementById("a_general").style.backgroundColor = "#4CAF50";
     document.getElementById("a_general").style.color = "white";
+
+    // 查询的关键字变成红色并且加粗
+    let title = [[${subTitle}]].toString();
+    let table = document.getElementById("table-general");
+    let row = table.rows.length;
+    for (let i = 1; i < row; i++) {
+        let ptitle = table.rows[i].cells[2];
+        let ptitles = ptitle.innerHTML;
+        let values = ptitles.split(title);
+        ptitle.innerHTML = values.join('<span style="color: red; font-weight: bold">' + title + '</span>');
+    }
+
+    // 判断检索内容是否为空
+    function search() {
+        let subTitle = document.getElementById("subTitle").value;
+        if (subTitle === "") {
+            alert("请输入检索内容！");
+            return false;
+        }
+        return true;
+    }
 </script>
 
 </html>

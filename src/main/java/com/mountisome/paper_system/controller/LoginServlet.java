@@ -43,6 +43,7 @@ public class LoginServlet {
         return "login";
     }
 
+    // 登录功能
     @PostMapping("/login")
     public String login(HttpSession session, HttpServletRequest request) throws IOException {
         String name = request.getParameter("name");

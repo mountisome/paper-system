@@ -14,15 +14,15 @@
     <div th:replace="common :: leftmenu"></div>
 
     <div class="right-content col-md-10">
-        <br>
-        <form th:action="@{/admin/findAllUsers}" method="post">
+        <form th:action="@{/admin/findAllUsers}" method="post" style="margin-top: 20px;">
             <div>
-                <label>用户名：</label>
-                <input type="text" name="name">
-                <button type="submit">检索</button>
+                <label style="font-size: 25px">用户名：</label>
+                <input type="text" name="name" id="name" style="font-size: 25px; border-radius: 4px;
+                border: 2px solid #ccc;">
+                <button type="submit" style="font-size: 20px;" onclick="return search()">检索</button>
             </div>
         </form>
-        <table class="table table-bordered">
+        <table class="table table-bordered" style="margin-top: 20px" th:if="${name} != 'null'" id="table-user">
             <thead>
                 <tr>
                     <th style="background-color: lightblue;">序号</th>
@@ -52,7 +52,31 @@
     </div>
 </body>
 
-<script>
+<script th:inline="javascript">
+    document.getElementById("li_head2").className = "active";
+
+    document.getElementById("a_manageUser").style.backgroundColor = "#4CAF50";
+    document.getElementById("a_manageUser").style.color = "white";
+
+    let name = [[${name}]].toString();
+    let table = document.getElementById("table-user");
+    let row = table.rows.length;
+    for (let i = 1; i < row; i++) {
+        let pname = table.rows[i].cells[1];
+        let pnames = pname.innerHTML;
+        let values = pnames.split(name);
+        pname.innerHTML = values.join('<span style="color: red; font-weight: bold">' + name + '</span>');
+    }
+
+    function search() {
+        let name2 = document.getElementById("name").value;
+        if (name2 === "") {
+            alert("请输入用户名！");
+            return false;
+        }
+        return true;
+    }
+
     function deleteUser() {
         let userNum = "[[${userNum}]]";
         if (userNum === "1") {
