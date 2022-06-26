@@ -4,14 +4,14 @@ use prs;
 create table admin(
                       id int primary key auto_increment,
                       name varchar(30),
-                      pwd varchar(30),
+                      pwd varchar(100),
                       addtime varchar(30)
 );
 
 create table user(
                      id int primary key auto_increment,
                      name varchar(30),
-                     pwd varchar(30),
+                     pwd varchar(100),
                      phone varchar(30),
                      mailbox varchar(30),
                      addtime varchar(30)

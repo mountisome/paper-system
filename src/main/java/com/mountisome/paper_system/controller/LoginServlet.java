@@ -1,10 +1,10 @@
 package com.mountisome.paper_system.controller;
 
-import com.alibaba.druid.support.json.JSONUtils;
 import com.mountisome.paper_system.entity.User;
 import com.mountisome.paper_system.service.LoginService;
 import com.mountisome.paper_system.service.RegisterService;
 import com.mountisome.paper_system.service.UserManageService;
+import com.mountisome.paper_system.utils.MD5Utils;
 import com.mountisome.paper_system.utils.ValidateImageCodeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
@@ -45,7 +46,7 @@ public class LoginServlet {
 
     // 登录功能
     @PostMapping("/login")
-    public String login(HttpSession session, HttpServletRequest request) throws IOException {
+    public String login(HttpSession session, HttpServletRequest request) throws IOException, NoSuchAlgorithmException {
         String name = request.getParameter("name");
         String pwd = request.getParameter("pwd");
         String checkcode = request.getParameter("checkcode");
@@ -100,15 +101,16 @@ public class LoginServlet {
     }
 
     @RequestMapping("/register")
-    public String register(HttpServletRequest request) throws IOException {
+    public String register(HttpServletRequest request) throws IOException, NoSuchAlgorithmException {
         String name = request.getParameter("name");
         String pwd = request.getParameter("pwd");
+        String newPwd = MD5Utils.getMD5(name) + MD5Utils.getMD5(pwd);
         String phone = request.getParameter("phone");
         String mailbox = request.getParameter("mailbox");
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String addtime = sdf.format(date);
-        User user = new User(name, pwd, phone, mailbox, addtime);
+        User user = new User(name, newPwd, phone, mailbox, addtime);
         registerService.addNewUser(user);
         return "redirect:/";
     }
