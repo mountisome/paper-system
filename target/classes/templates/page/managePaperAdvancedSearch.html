@@ -37,7 +37,18 @@
         </form>
     </div>
 
-    <div class="right-content col-md-10" th:if="${title} != 'null'" style="margin-top: 20px">
+    <div class="right-content col-md-10" style="margin-top: 15px; margin-left: 15px;
+    background-color: lightgrey; width: 1250px; height: 30px;" th:if="${title} != 'null'">
+        <div style="float: right; margin-top: 5px;">
+            <a id="a_time" style="margin-right: 20px;" th:href="@{/user/findAllPapersMulti(currentPage='1',
+            classnum=${classnum}, title=${title}, author=${author}, keyword=${keyword}, type=${type},
+            order='time')}">发表时间</a>
+            <a id="a_download" th:href="@{/user/findAllPapersMulti(currentPage='1', classnum=${classnum},
+            title=${title}, author=${author}, keyword=${keyword}, type=${type}, order='download')}">下载次数</a>
+        </div>
+    </div>
+
+    <div class="right-content col-md-10" th:if="${title} != 'null'" style="margin-top: 15px">
         <table class="table table-bordered" id="table-advanced">
             <thead>
                 <tr>
@@ -78,25 +89,33 @@
                 <ul class="pagination" th:if="${pageInfo.total == 0 || (pageInfo.isFirstPage && pageInfo.isLastPage)}">
                 </ul>
                 <ul class="pagination" th:if="${pageInfo.isFirstPage && !pageInfo.isLastPage}">
-                    <li><a th:href="@{/user/findAllPapersMulti(currentPage=${pageInfo.nextPage}, subTitle=${subTitle})}">
+                    <li><a th:href="@{/user/findAllPapersMulti(currentPage=${pageInfo.nextPage}, classnum=${classnum},
+                    title=${title}, author=${author}, keyword=${keyword}, type=${type}, order=${order})}">
                         下一页</a></li>
-                    <li><a th:href="@{/user/findAllPapersMulti(currentPage=${pageInfo.pages}, subTitle=${subTitle})}">
+                    <li><a th:href="@{/user/findAllPapersMulti(currentPage=${pageInfo.pages}, classnum=${classnum},
+                    title=${title}, author=${author}, keyword=${keyword}, type=${type}, order=${order})}">
                         尾页</a></li>
                 </ul>
                 <ul class="pagination" th:if="${pageInfo.isLastPage && !pageInfo.isFirstPage && pageInfo.total != 0}">
-                    <li><a th:href="@{/user/findAllPapersMulti(currentPage=${pageInfo.firstPage}, subTitle=${subTitle})}">
+                    <li><a th:href="@{/user/findAllPapersMulti(currentPage=${pageInfo.firstPage}, classnum=${classnum},
+                    title=${title}, author=${author}, keyword=${keyword}, type=${type}, order=${order})}">
                         首页</a></li>
-                    <li><a th:href="@{/user/findAllPapersMulti(currentPage=${pageInfo.prePage}, subTitle=${subTitle})}">
+                    <li><a th:href="@{/user/findAllPapersMulti(currentPage=${pageInfo.prePage}, classnum=${classnum},
+                    title=${title}, author=${author}, keyword=${keyword}, type=${type}, order=${order})}">
                         上一页</a></li>
                 </ul>
                 <ul class="pagination" th:if="${!pageInfo.isLastPage && !pageInfo.isFirstPage}">
-                    <li><a th:href="@{/user/findAllPapersMulti(currentPage=${pageInfo.firstPage}, subTitle=${subTitle})}">
+                    <li><a th:href="@{/user/findAllPapersMulti(currentPage=${pageInfo.firstPage}, classnum=${classnum},
+                    title=${title}, author=${author}, keyword=${keyword}, type=${type}, order=${order})}">
                         首页</a></li>
-                    <li><a th:href="@{/user/findAllPapersMulti(currentPage=${pageInfo.prePage}, subTitle=${subTitle})}">
+                    <li><a th:href="@{/user/findAllPapersMulti(currentPage=${pageInfo.prePage}, classnum=${classnum},
+                    title=${title}, author=${author}, keyword=${keyword}, type=${type}, order=${order})}">
                         上一页</a></li>
-                    <li><a th:href="@{/user/findAllPapersMulti(currentPage=${pageInfo.nextPage}, subTitle=${subTitle})}">
+                    <li><a th:href="@{/user/findAllPapersMulti(currentPage=${pageInfo.nextPage}, classnum=${classnum},
+                    title=${title}, author=${author}, keyword=${keyword}, type=${type}, order=${order})}">
                         下一页</a></li>
-                    <li><a th:href="@{/user/findAllPapersMulti(currentPage=${pageInfo.pages}, subTitle=${subTitle})}">
+                    <li><a th:href="@{/user/findAllPapersMulti(currentPage=${pageInfo.pages}, classnum=${classnum},
+                    title=${title}, author=${author}, keyword=${keyword}, type=${type}, order=${order})}">
                         尾页</a></li>
                 </ul>
             </div>
@@ -133,6 +152,16 @@
         ptitle.innerHTML = value2.join('<span style="color: red; font-weight: bold">' + title + '</span>');
         pauthor.innerHTML = value3.join('<span style="color: red; font-weight: bold">' + author + '</span>');
         pkeyword.innerHTML = value4.join('<span style="color: red; font-weight: bold">' + keyword + '</span>');
+    }
+
+    let order = [[${order}]].toString();
+    if (order === "time") {
+        document.getElementById("a_time").style.color = "blue";
+        document.getElementById("a_time").style.fontWeight = "bold";
+    }
+    else {
+        document.getElementById("a_download").style.color = "blue";
+        document.getElementById("a_download").style.fontWeight = "bold";
     }
 
     function search() {

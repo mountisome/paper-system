@@ -28,8 +28,16 @@ public class PaperInfoServiceImpl implements PaperInfoService {
         return paperInfoMapper.findByPaperInfo(paperInfo);
     }
 
+    public List<PaperInfo> findByPaperInfoDownload(PaperInfo paperInfo) {
+        return paperInfoMapper.findByPaperInfoDownload(paperInfo);
+    }
+
     public List<PaperInfo> findByMultiPaperInfo(PaperInfo paperInfo) throws IOException {
         return paperInfoMapper.findByMultiPaperInfo(paperInfo);
+    }
+
+    public List<PaperInfo> findByMultiPaperInfoDownload(PaperInfo paperInfo) {
+        return paperInfoMapper.findByMultiPaperInfoDownload(paperInfo);
     }
 
     public void addPaperInfo(PaperInfo paperInfo) throws IOException {

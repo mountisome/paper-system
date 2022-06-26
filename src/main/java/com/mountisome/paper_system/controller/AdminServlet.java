@@ -41,7 +41,7 @@ public class AdminServlet {
         return "/page/addNewAdmin";
     }
 
-    @GetMapping("/addNewAdmin")
+    @PostMapping("/addNewAdmin")
     public String addNewAdmin(String name, String pwd) throws IOException {
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -86,10 +86,12 @@ public class AdminServlet {
     }
 
     @RequestMapping("/findAllPapers")
-    public ModelAndView findAllPapers(String currentPage, String subTitle, HttpSession session) throws IOException {
+    public ModelAndView findAllPapers(String currentPage, String subTitle, HttpSession session,
+                                      String order) throws IOException {
         session.setAttribute("function", "paperInfoAdmin");
         int page = 1;
         if (currentPage != null) page = Integer.parseInt(currentPage);
+        if (order == null) order = "time";
         if(subTitle == null) subTitle = "null";
         PaperInfo paperInfo = new PaperInfo();
         paperInfo.setTitle(subTitle);
@@ -98,12 +100,15 @@ public class AdminServlet {
         paperInfo.setKeyword(subTitle);
         // 设置分页相关参数  当前页+每页显示的条数
         PageHelper.startPage(page, 5);
-        List<PaperInfo> paperInfoList = paperInfoService.findByPaperInfo(paperInfo);
+        List<PaperInfo> paperInfoList;
+        if (order.equals("time")) paperInfoList = paperInfoService.findByPaperInfo(paperInfo);
+        else paperInfoList = paperInfoService.findByPaperInfoDownload(paperInfo);
         PageInfo<PaperInfo> pageInfo = new PageInfo<PaperInfo>(paperInfoList);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("subTitle", subTitle);
         modelAndView.addObject("paperInfoList", paperInfoList);
         modelAndView.addObject("pageInfo", pageInfo);
+        modelAndView.addObject("order", order);
         modelAndView.setViewName("/page/generalSearchByAdmin");
         return modelAndView;
     }

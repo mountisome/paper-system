@@ -5,7 +5,7 @@
 
     <!--查询所有的普通用户-->
     <select id="findAllUsers" resultType="com.mountisome.paper_system.entity.User">
-        select * from user group by id DESC
+        select * from user order by id DESC
     </select>
 
     <!--修改用户信息-->
@@ -20,7 +20,7 @@
 
     <!--通过用户名查询普通用户-->
     <select id="findByUserName" parameterType="String" resultType="com.mountisome.paper_system.entity.User">
-        select * from user where name like "%"#{name}"%" group by id DESC
+        select * from user where name like "%"#{name}"%" order by id DESC
     </select>
 
     <!--通过用户名查询特定用户-->

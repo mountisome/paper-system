@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.LinkedList;
 import java.util.List;
 
 @Controller
@@ -30,9 +31,11 @@ public class UserServlet {
     private UserManageService userManageService;
 
     @RequestMapping("/findAllPapers")
-    public String findAllPapers(HttpSession session, String currentPage, String subTitle, Model model) throws IOException {
+    public ModelAndView findAllPapers(HttpSession session, String currentPage, String subTitle,
+                                      String order) throws IOException {
         session.setAttribute("function", "paperInfoUser");
         session.setAttribute("search", "general");
+        if (order == null) order = "time";
         if (subTitle == null) subTitle = "null";
         int page = 1;
         if (currentPage != null) page = Integer.parseInt(currentPage);
@@ -43,12 +46,17 @@ public class UserServlet {
         paperInfo.setKeyword(subTitle);
         // 设置分页相关参数  当前页+每页显示的条数
         PageHelper.startPage(page, 5);
-        List<PaperInfo> paperInfoList = paperInfoService.findByPaperInfo(paperInfo);
+        List<PaperInfo> paperInfoList;
+        if (order.equals("time")) paperInfoList = paperInfoService.findByPaperInfo(paperInfo);
+        else paperInfoList = paperInfoService.findByPaperInfoDownload(paperInfo);
         PageInfo<PaperInfo> pageInfo = new PageInfo<PaperInfo>(paperInfoList);
-        model.addAttribute("subTitle", subTitle);
-        model.addAttribute("paperInfoList", paperInfoList);
-        model.addAttribute("pageInfo", pageInfo);
-        return "/page/managePaperGeneralSearch";
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("subTitle", subTitle);
+        modelAndView.addObject("paperInfoList", paperInfoList);
+        modelAndView.addObject("pageInfo", pageInfo);
+        modelAndView.addObject("order", order);
+        modelAndView.setViewName("/page/managePaperGeneralSearch");
+        return modelAndView;
     }
 
     @RequestMapping("/findAllPapersMulti")
@@ -62,6 +70,7 @@ public class UserServlet {
         String author = request.getParameter("author");
         String keyword = request.getParameter("keyword");
         String type = request.getParameter("type");
+        String order = request.getParameter("order");
         if (classnum == null) {
             classnum = "";
         }
@@ -77,6 +86,7 @@ public class UserServlet {
         if (type == null || type.equals("不限")) {
             type = "";
         }
+        if (order == null) order = "time";
         PageHelper.startPage(currentPage, 5);
         PaperInfo paperInfo = new PaperInfo();
         paperInfo.setClassnum(classnum);
@@ -84,7 +94,10 @@ public class UserServlet {
         paperInfo.setAuthor(author);
         paperInfo.setKeyword(keyword);
         paperInfo.setType(type);
-        List<PaperInfo> paperInfoList = paperInfoService.findByMultiPaperInfo(paperInfo);
+        List<PaperInfo> paperInfoList;
+
+        if (order.equals("time")) paperInfoList = paperInfoService.findByMultiPaperInfo(paperInfo);
+        else paperInfoList = paperInfoService.findByMultiPaperInfoDownload(paperInfo);
         PageInfo<PaperInfo> pageInfo = new PageInfo<PaperInfo>(paperInfoList);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("paperInfoList", paperInfoList);
@@ -94,6 +107,7 @@ public class UserServlet {
         modelAndView.addObject("author", author);
         modelAndView.addObject("keyword", keyword);
         modelAndView.addObject("type", type);
+        modelAndView.addObject("order", order);
         modelAndView.setViewName("/page/managePaperAdvancedSearch");
         return modelAndView;
     }

@@ -14,11 +14,17 @@ public interface PaperInfoService {
     // 通过序号查询论文
     public PaperInfo findByPaperInfoId(int id) throws IOException;
 
-    // 通过标题,作者,摘要,关键字模糊查询论文
+    // 通过标题,作者,摘要,关键字模糊查询论文，按发表时间降序排列
     public List<PaperInfo> findByPaperInfo(PaperInfo paperInfo) throws IOException;
 
-    // 复合检索论文
+    // 通过标题,作者,摘要,关键字模糊查询论文，按下载次数降序排列
+    public List<PaperInfo> findByPaperInfoDownload(PaperInfo paperInfo) throws IOException;
+
+    // 复合检索论文，按发表时间降序排列
     public List<PaperInfo> findByMultiPaperInfo(PaperInfo paperInfo) throws IOException;
+
+    // 复合检索论文，按下载次数降序排列
+    public List<PaperInfo> findByMultiPaperInfoDownload(PaperInfo paperInfo) throws IOException;
 
     // 添加论文
     public void addPaperInfo(PaperInfo paperInfo) throws IOException;

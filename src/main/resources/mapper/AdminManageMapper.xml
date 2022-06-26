@@ -6,12 +6,12 @@
 
     <!--查询所有的系统管理员-->
     <select id="findAllAdmins" resultType="com.mountisome.paper_system.entity.Admin">
-        select * from admin group by id DESC
+        select * from admin order by id DESC
     </select>
 
     <!--通过用户名查询系统管理员-->
     <select id="findByAdminName" parameterType="String" resultType="com.mountisome.paper_system.entity.Admin">
-        select * from admin where name like "%"#{name}"%" group by id DESC
+        select * from admin where name like "%"#{name}"%" order by id DESC
     </select>
 
     <!--通过用户名查询系统管理员的密码-->

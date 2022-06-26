@@ -5,7 +5,7 @@
 
     <!--查询所有论文-->
     <select id="findAllPapers" resultType="com.mountisome.paper_system.entity.PaperInfo">
-        select * from paperinfo group by id DESC
+        select * from paperinfo order by id DESC
     </select>
 
     <!--通过id查询论文-->
@@ -13,7 +13,7 @@
         select * from paperinfo where id=#{id}
     </select>
 
-    <!--通过标题,作者,摘要,关键字模糊查询论文-->
+    <!--通过标题,作者,摘要,关键字模糊查询论文，按发表时间降序排列-->
     <select id="findByPaperInfo" resultType="com.mountisome.paper_system.entity.PaperInfo"
             parameterType="com.mountisome.paper_system.entity.PaperInfo">
         select * from paperinfo
@@ -31,10 +31,31 @@
                 or keyword like "%"#{keyword}"%"
             </if>
         </where>
-        group by id DESC
+        order by id DESC
     </select>
 
-    <!--复合检索论文-->
+    <!--通过标题,作者,摘要,关键字模糊查询论文，按下载次数降序排列-->
+    <select id="findByPaperInfoDownload" resultType="com.mountisome.paper_system.entity.PaperInfo"
+            parameterType="com.mountisome.paper_system.entity.PaperInfo">
+        select * from paperinfo
+        <where>
+            <if test="title != null">
+                and title like "%"#{title}"%"
+            </if>
+            <if test="author != null">
+                or author like "%"#{author}"%"
+            </if>
+            <if test="abstracts != null">
+                or abstracts like "%"#{abstracts}"%"
+            </if>
+            <if test="keyword != null">
+                or keyword like "%"#{keyword}"%"
+            </if>
+        </where>
+        order by download DESC
+    </select>
+
+    <!--复合检索论文，按发表时间降序排列-->
     <select id="findByMultiPaperInfo" resultType="com.mountisome.paper_system.entity.PaperInfo"
             parameterType="com.mountisome.paper_system.entity.PaperInfo">
         select * from paperinfo
@@ -55,7 +76,31 @@
                 and type like "%"#{type}"%"
             </if>
         </where>
-        group by id DESC
+        order by id DESC
+    </select>
+
+    <!--复合检索论文，按下载次数降序排列-->
+    <select id="findByMultiPaperInfoDownload" resultType="com.mountisome.paper_system.entity.PaperInfo"
+            parameterType="com.mountisome.paper_system.entity.PaperInfo">
+        select * from paperinfo
+        <where>
+            <if test="classnum != null">
+                and classnum like "%"#{classnum}"%"
+            </if>
+            <if test="title != null">
+                and title like "%"#{title}"%"
+            </if>
+            <if test="author != null">
+                and author like "%"#{author}"%"
+            </if>
+            <if test="keyword != null">
+                and keyword like "%"#{keyword}"%"
+            </if>
+            <if test="type != null">
+                and type like "%"#{type}"%"
+            </if>
+        </where>
+        order by download DESC
     </select>
 
     <!--添加论文-->
