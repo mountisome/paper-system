@@ -4,7 +4,7 @@ import com.mountisome.paper_system.dao.LoginMapper;
 import com.mountisome.paper_system.entity.Admin;
 import com.mountisome.paper_system.entity.User;
 import com.mountisome.paper_system.service.LoginService;
-import com.mountisome.paper_system.utils.MD5Utils;
+import com.mountisome.paper_system.utils.SHAUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +22,7 @@ public class LoginServiceImpl implements LoginService {
         User userFind = loginMapper.findUserByName(name);
         if(userFind != null) {
             result = 1; // 普通用户存在
-            String newStr = MD5Utils.getMD5(name) + MD5Utils.getMD5(pwd);
+            String newStr = SHAUtils.getSHA(name + pwd);
             if(userFind.getPwd().equals(newStr)) {
                 result = 0; // 普通用户存在并且密码正确
             }
@@ -35,7 +35,7 @@ public class LoginServiceImpl implements LoginService {
         Admin admin = loginMapper.findAdminByName(name);
         if(admin != null) {
             result = 1; // 系统管理员存在
-            String newStr = MD5Utils.getMD5(name) + MD5Utils.getMD5(pwd);
+            String newStr = SHAUtils.getSHA(name + pwd);
             if(admin.getPwd().equals(newStr)) {
                 result = 0; // 系统管理员存在并且密码正确
             }

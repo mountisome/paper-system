@@ -56,4 +56,8 @@ public class PaperInfoServiceImpl implements PaperInfoService {
         paperInfoMapper.deletePaperInfo(id);
     }
 
+    public List<String> findSubtitlesByName(String name) {
+        return paperInfoMapper.findSubtitlesByName(name);
+    }
+
 }

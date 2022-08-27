@@ -65,21 +65,27 @@ paper-system是一个论文检索系统，基于Spring Boot+MyBatis+Bootstrap+Th
 
 <br>
 
+#### 检索：
+
+<div align=center><img src="https://mountisomeb1.oss-cn-shanghai.aliyuncs.com/img/202208271710301.jpg"></div>
+
+<br>
+
 #### 综合检索界面：
 
-<div align=center><img src="https://mountisomeb1.oss-cn-shanghai.aliyuncs.com/img/202203262233358.jpg"></div>
+<div align=center><img src="https://mountisomeb1.oss-cn-shanghai.aliyuncs.com/img/202208271710525.jpg"></div>
 
 <br>
 
 #### 复合检索界面：
 
-<div align=center><img src="https://mountisomeb1.oss-cn-shanghai.aliyuncs.com/img/202203262233454.jpg"></div>
+<div align=center><img src="https://mountisomeb1.oss-cn-shanghai.aliyuncs.com/img/202208271710455.jpg"></div>
 
 <br>
 
 #### 网络检索界面：
 
-<div align=center><img src="https://mountisomeb1.oss-cn-shanghai.aliyuncs.com/img/202203262233567.jpg"></div>
+<div align=center><img src="https://mountisomeb1.oss-cn-shanghai.aliyuncs.com/img/202208271710544.jpg"></div>
 
 <br>
 
@@ -97,7 +103,7 @@ paper-system是一个论文检索系统，基于Spring Boot+MyBatis+Bootstrap+Th
 
 #### 系统管理员的论文检索界面：
 
-<div align=center><img src="https://mountisomeb1.oss-cn-shanghai.aliyuncs.com/img/202203262233808.jpg"></div>
+<div align=center><img src="https://mountisomeb1.oss-cn-shanghai.aliyuncs.com/img/202208271710812.jpg"></div>
 
 <br>
 

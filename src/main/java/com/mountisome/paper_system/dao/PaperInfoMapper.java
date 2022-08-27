@@ -38,4 +38,7 @@ public interface PaperInfoMapper {
     // 删除论文信息
     public void deletePaperInfo(int id);
 
+    // 通过名称查询标题
+    public List<String> findSubtitlesByName(String name);
+
 }

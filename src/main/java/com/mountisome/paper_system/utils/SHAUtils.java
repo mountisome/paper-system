@@ -3,12 +3,12 @@ package com.mountisome.paper_system.utils;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class MD5Utils {
+public class SHAUtils {
 
-    public static String getMD5(String str) throws NoSuchAlgorithmException {
-        MessageDigest md = MessageDigest.getInstance("MD5");
-        byte[] md5Bytes = md.digest(str.getBytes());
-        return bytesToHexString(md5Bytes);
+    public static String getSHA(String str) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        byte[] shaBytes = md.digest(str.getBytes());
+        return bytesToHexString(shaBytes);
     }
 
     public static String bytesToHexString(byte[] bytes) {

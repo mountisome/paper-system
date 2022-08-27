@@ -24,9 +24,6 @@
             <if test="author != null">
                 or author like "%"#{author}"%"
             </if>
-            <if test="abstracts != null">
-                or abstracts like "%"#{abstracts}"%"
-            </if>
             <if test="keyword != null">
                 or keyword like "%"#{keyword}"%"
             </if>
@@ -44,9 +41,6 @@
             </if>
             <if test="author != null">
                 or author like "%"#{author}"%"
-            </if>
-            <if test="abstracts != null">
-                or abstracts like "%"#{abstracts}"%"
             </if>
             <if test="keyword != null">
                 or keyword like "%"#{keyword}"%"
@@ -126,5 +120,10 @@
     <delete id="deletePaperInfo" parameterType="int">
         delete from paperinfo where id=#{id}
     </delete>
+
+    <!--通过名称查询标题-->
+    <select id="findSubtitlesByName" resultType="String">
+        select name from subtitle where name like "%"#{name}"%"
+    </select>
 
 </mapper>

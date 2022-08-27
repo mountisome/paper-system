@@ -1,15 +1,19 @@
 package com.mountisome.paper_system.controller;
 
+import com.alibaba.druid.support.json.JSONUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.mountisome.paper_system.entity.PaperInfo;
 import com.mountisome.paper_system.entity.User;
 import com.mountisome.paper_system.service.PaperInfoService;
 import com.mountisome.paper_system.service.UserManageService;
+import com.mountisome.paper_system.utils.SHAUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +21,7 @@ import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 @Controller
@@ -42,7 +46,6 @@ public class UserServlet {
         PaperInfo paperInfo = new PaperInfo();
         paperInfo.setTitle(subTitle);
         paperInfo.setAuthor(subTitle);
-        paperInfo.setAbstracts(subTitle);
         paperInfo.setKeyword(subTitle);
         // 设置分页相关参数  当前页+每页显示的条数
         PageHelper.startPage(page, 5);
@@ -126,9 +129,10 @@ public class UserServlet {
     }
 
     @RequestMapping("/modifyUser")
-    public String modifyUser(HttpServletRequest request, HttpSession session) throws IOException {
+    public String modifyUser(HttpServletRequest request, HttpSession session) throws IOException, NoSuchAlgorithmException {
         String name = (String) session.getAttribute("loginName");
         String pwd = request.getParameter("newPwd");
+        pwd = SHAUtils.getSHA(name + pwd);
         String phone = request.getParameter("phone");
         String mailbox = request.getParameter("mailbox");
         User user = new User(name, pwd, phone, mailbox);
@@ -158,6 +162,14 @@ public class UserServlet {
             e.printStackTrace();
         }
         return "redirect:/user/findAllPapers";
+    }
+
+    @RequestMapping("/findSubtitlesByName")
+    @ResponseBody
+    public String findSubtitlesByName(@RequestParam("subTitle") String subTitle) {
+        List<String> titleList;
+        titleList = paperInfoService.findSubtitlesByName(subTitle);
+        return JSONUtils.toJSONString(titleList);
     }
 
 }

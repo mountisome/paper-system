@@ -4,7 +4,7 @@ import com.mountisome.paper_system.entity.User;
 import com.mountisome.paper_system.service.LoginService;
 import com.mountisome.paper_system.service.RegisterService;
 import com.mountisome.paper_system.service.UserManageService;
-import com.mountisome.paper_system.utils.MD5Utils;
+import com.mountisome.paper_system.utils.SHAUtils;
 import com.mountisome.paper_system.utils.ValidateImageCodeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -104,7 +104,8 @@ public class LoginServlet {
     public String register(HttpServletRequest request) throws IOException, NoSuchAlgorithmException {
         String name = request.getParameter("name");
         String pwd = request.getParameter("pwd");
-        String newPwd = MD5Utils.getMD5(name) + MD5Utils.getMD5(pwd);
+        String str = name + pwd;
+        String newPwd = SHAUtils.getSHA(str);
         String phone = request.getParameter("phone");
         String mailbox = request.getParameter("mailbox");
         Date date = new Date();

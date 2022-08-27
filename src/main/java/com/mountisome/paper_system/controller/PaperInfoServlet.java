@@ -69,7 +69,7 @@ public class PaperInfoServlet {
     public void downloadPaper(HttpServletResponse response, String id, String address) {
         try{
             int pid = Integer.parseInt(id);
-            String filepath = "E:/projects/论文检索系统4/" + address;
+            String filepath = "E:/projects/论文检索系统/" + address;
             System.out.println(filepath);
             File file = new File(filepath);
             // 如果文件存在

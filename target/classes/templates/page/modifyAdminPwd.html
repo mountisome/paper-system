@@ -50,8 +50,26 @@
 
     function modifyPwd() {
         let pwd = "[[${pwd}]]";
+        let name = document.getElementById("name").value;
         let oldPwd = document.getElementById("oldPwd").value;
         let newPwd = document.getElementById("newPwd").value;
+
+        jQuery.ajax({
+            url: "/admin/getPassword",
+            type: "post",
+            async : false,
+            data: {
+                "name": name,
+                "pwd": oldPwd
+            },
+            dataType: "JSON",
+            success: function(data) {
+                oldPwd = data;
+            },
+            error: function(errorMsg) {
+                console.log(errorMsg);
+            }
+        });
 
         if (pwd !== oldPwd) {
             alert("原密码错误！");

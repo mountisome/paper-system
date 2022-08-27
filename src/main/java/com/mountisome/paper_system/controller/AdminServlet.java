@@ -1,5 +1,6 @@
 package com.mountisome.paper_system.controller;
 
+import com.alibaba.druid.support.json.JSONUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.mountisome.paper_system.entity.Admin;
@@ -8,17 +9,17 @@ import com.mountisome.paper_system.entity.User;
 import com.mountisome.paper_system.service.AdminManageService;
 import com.mountisome.paper_system.service.PaperInfoService;
 import com.mountisome.paper_system.service.UserManageService;
+import com.mountisome.paper_system.utils.SHAUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -42,10 +43,11 @@ public class AdminServlet {
     }
 
     @PostMapping("/addNewAdmin")
-    public String addNewAdmin(String name, String pwd) throws IOException {
+    public String addNewAdmin(String name, String pwd) throws IOException, NoSuchAlgorithmException {
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String addtime = sdf.format(date);
+        pwd = SHAUtils.getSHA(name + pwd);
         Admin admin = new Admin(name, pwd, addtime);
         adminManageService.addNewAdmin(admin);
         return "redirect:/admin/findAllAdmins";
@@ -145,7 +147,8 @@ public class AdminServlet {
     }
 
     @PostMapping("/modifyAdminPwd")
-    public String modifyAdminPwd(String name, String newPwd) throws IOException {
+    public String modifyAdminPwd(String name, String newPwd) throws IOException, NoSuchAlgorithmException {
+        newPwd = SHAUtils.getSHA(name + newPwd);
         Admin admin = new Admin();
         admin.setName(name);
         admin.setPwd(newPwd);
@@ -154,8 +157,10 @@ public class AdminServlet {
     }
 
     @PostMapping("/modifyUserPwd")
-    public String modifyUserPwd(String id, String pwd) throws IOException {
+    public String modifyUserPwd(String id, String pwd) throws IOException, NoSuchAlgorithmException {
         int userId = Integer.parseInt(id);
+        String name = userManageService.findByUserId(userId).getName();
+        pwd = SHAUtils.getSHA(name + pwd);
         User user = new User();
         user.setId(userId);
         user.setPwd(pwd);
@@ -201,6 +206,13 @@ public class AdminServlet {
         modelAndView.addObject("paper", paper);
         modelAndView.setViewName("/page/modifyPaperInfo");
         return modelAndView;
+    }
+
+    @RequestMapping("/getPassword")
+    @ResponseBody
+    public String getPassword(@RequestParam("name") String name, @RequestParam("pwd") String pwd) throws NoSuchAlgorithmException {
+        String password = SHAUtils.getSHA(name + pwd);
+        return JSONUtils.toJSONString(password);
     }
 
 }

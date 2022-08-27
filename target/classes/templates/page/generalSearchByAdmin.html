@@ -14,13 +14,16 @@
     <div th:replace="common :: leftmenu"></div>
 
     <div class="right-content col-md-10">
-        <form class="form-inline" th:action="@{/admin/findAllPapers}" method="post" style="margin-top: 20px;">
-            <div class="form-group">
-                <label style="font-size: 25px">搜索：</label>
-                <input type="text" name="subTitle" id="subTitle" style="font-size: 25px; border-radius: 4px;
-                border: 2px solid #ccc;">
+        <form class="form-inline" th:action="@{/admin/findAllPapers}" method="post" style="margin-top: 20px;"
+              onkeydown="if(event.keyCode===13){return false;}">
+            <div class="search">
+                <div class="form-group">
+                    <label style="font-size: 25px">搜索：</label>
+                    <input type="text" name="subTitle" id="subTitle" style="font-size: 20px; border-radius: 4px;
+                border: 2px solid #ccc;" autocomplete="off">
+                </div>
+                <button type="submit" onclick="return search()" style="font-size: 20px;">检索</button>
             </div>
-            <button type="submit" onclick="return search()" style="font-size: 20px;">检索</button>
         </form>
     </div>
 
@@ -114,11 +117,15 @@
     let title = [[${subTitle}]].toString();
     let table = document.getElementById("table-general-admin");
     let row = table.rows.length;
-    for (let i = 1; i < row; i++) {
-        let ptitle = table.rows[i].cells[2];
-        let ptitles = ptitle.innerHTML;
-        let values = ptitles.split(title);
-        ptitle.innerHTML = values.join('<span style="color: red; font-weight: bold">' + title + '</span>');
+    if (row != null) {
+        for (let i = 1; i < row; i++) {
+            for (let j = 2; j <= 4; j++) {
+                let ptitle = table.rows[i].cells[j];
+                let ptitles = ptitle.innerHTML;
+                let values = ptitles.split(title);
+                ptitle.innerHTML = values.join('<span style="color: red; font-weight: bold">' + title + '</span>');
+            }
+        }
     }
 
     let order = [[${order}]].toString();
